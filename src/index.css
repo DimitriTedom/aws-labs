@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -27,7 +30,9 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --radius: 0.5rem;
+    --Inter: "Inter", sans-serif;
+    --worketblue: #00539c;
   }
   .dark {
     --background: 240 10% 3.9%;
@@ -53,7 +58,7 @@
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --chart-5: 340 75% 55%;
   }
 }
 @layer base {
@@ -61,6 +66,77 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground p-0 m-0 box-border font-Inter;
+  }
+}
+
+@layer components {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-start {
+    @apply flex justify-start items-start;
+  }
+
+  .flex-end {
+    @apply flex justify-end items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+}
+
+@layer utilities {
+  .spinner {
+    position: relative;
+    width: 15.7px;
+    height: 15.7px;
+  }
+
+  .spinner div {
+    animation: spinner-4t3wzl 1.875s infinite backwards;
+    background-color: #00539c;
+    border-radius: 50%;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .spinner div:nth-child(1) {
+    animation-delay: 0.15s;
+    background-color: rgba(0, 83, 156, 0.9);
+  }
+
+  .spinner div:nth-child(2) {
+    animation-delay: 0.3s;
+    background-color: rgba(0, 83, 156, 0.8);
+  }
+
+  .spinner div:nth-child(3) {
+    animation-delay: 0.45s;
+    background-color: rgba(0, 83, 156, 0.7);
+  }
+
+  .spinner div:nth-child(4) {
+    animation-delay: 0.6s;
+    background-color: rgba(0, 83, 156, 0.6);
+  }
+
+  .spinner div:nth-child(5) {
+    animation-delay: 0.75s;
+    background-color: rgba(0, 83, 156, 0.5);
+  }
+
+  @keyframes spinner-4t3wzl {
+    0% {
+      transform: rotate(0deg) translateY(-200%);
+    }
+
+    60%,
+    100% {
+      transform: rotate(360deg) translateY(-200%);
+    }
   }
 }

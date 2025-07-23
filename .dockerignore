@@ -1,4 +1,0 @@
-node_modules
-build
-docker-compose.yml
-*.log

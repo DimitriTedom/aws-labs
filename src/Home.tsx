@@ -1,21 +1,39 @@
-import { Button } from "@/components/ui/button"
+import AuthEnterOtp from "@/pages/Auth/AuthEnterOtp";
+import AuthLogin from "@/pages/Auth/AuthLogin";
+import AuthRegister from "@/pages/Auth/AuthRegister";
+import CompleteRegistrationOTP from "@/pages/Auth/CompleteRegistrationOTP";
+import EnterNewPassword from "@/pages/Auth/EnterNewPassword";
+import ForgotPassword from "@/pages/Auth/ForgotPassword";
+import NotFound from "@/pages/NotFound";
+import { Route, Routes } from "react-router-dom";
+import AuthLayout from "@/components/Auth/AuthLayout";
+import Index from "./pages/Index";
 
-export default function Home() {
+const Home = () => {
   return (
-    <div className='text-2xl items-center justify-center flex flex-col w-full h-full '>
-      <h1 className="underline font-extrabold ">
-        Here's a TEMPLATE WITH THE FOLLOWING DEPENDENCIES:</h1>
-      <ol>
-                <li>SHADCN</li>
-                <li>PRISMA</li>
-                <li>REACT-ICONS</li>
-                <li>ZUSTAND</li>
-                <li>TAILWINDCSS</li>
-                <li>REACT JS WITH VITE</li>
-            </ol>
-            Created by @DimitriTedom alias SnowDev for Code Lovers !!!
-      <Button>Here is a SHadCn button</Button>
+    <>
+      <div>
+        <Routes>
+          <Route path="/" element={<Index />} index />
+          <Route path="/auth" element={<AuthLayout />}>
+            <Route path="login" element={<AuthLogin />} />
+            <Route path="register" element={<AuthRegister />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route
+              path="complete/:email"
+              element={<CompleteRegistrationOTP />}
+            />
+            <Route path="verify-otp/:email" element={<AuthEnterOtp />} />
+            <Route
+              path="enter-new-password/:email"
+              element={<EnterNewPassword />}
+            />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </>
+  );
+};
 
-    </div>
-  )
-}
+export default Home;
