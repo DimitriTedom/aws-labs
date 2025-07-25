@@ -1,7 +1,7 @@
 // components/ProgressSidebar.tsx
-import { useLocation, matchPath } from "react-router-dom";
+import { useLocation, matchPath, Link } from "react-router-dom";
 import { Step } from "@/types";
-import { Mail, Rocket, UserRound, UserRoundPlus } from "lucide-react";
+import { Mail, MoveLeft, Rocket, UserRound, UserRoundPlus } from "lucide-react";
 
 const steps: Step[] = [
   {
@@ -34,7 +34,9 @@ const ProgressSidebar = () => {
   const location = useLocation();
 
   return (
-    <div className="w-full h-full flex flex-col gap-10 p-6 relative">
+    <div className="flex flex-col w-full h-full justify-between space-y-8">
+
+    <div className="w-full h-auto flex flex-col gap-10 p-6 relative">
       {/* <div className='bg-gray-200 w-1 h-16 absolute top-[9rem] left-[3.2rem]'></div> */}
       <img src="/worketyamo.png" alt="worketyamo" className="self-start mb-6" />
       {steps.map((step, index) => {
@@ -77,6 +79,18 @@ const ProgressSidebar = () => {
         );
       })}
     </div>
+    <div  className="w-full flex-between text-worketblue">
+      <Link to={"/"} className="flex-center gap-1">
+        <MoveLeft /> <h1>your details</h1>
+      </Link>
+
+      <Link to={"/auth/login"}>
+        Sign in
+      </Link>
+    </div>
+    </div>
+
+
   );
 };
 
