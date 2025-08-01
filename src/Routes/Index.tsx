@@ -9,24 +9,24 @@ import { createBrowserRouter } from "react-router-dom";
 import Invite from "@/pages/Auth/Invite";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home/>,
-        index: true
-    },
-    {
-        path:"/auth",
-        element: <AuthLayout/>,
-        children: [
-            {path:"login", element: <AuthLogin/>},
-            {path:"register", element: <AuthRegister/>},
-            {path:"invite", element: <Invite/>},
-            {path:"verify-otp/:email",element: <AuthEnterOtp/>},
-            {path: "welcome", element : <Welcome/>}
-        ]
-    },
-    {
-        path : "*",
-        element: <NotFound/>
-    }
-])
+  {
+    path: "/",
+    element: <Home />,
+    index: true,
+  },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [
+      { path: "login", element: <AuthLogin /> },
+      { path: "register", element: <AuthRegister /> },
+      { path: "invite", element: <Invite /> },
+      { path: "verify-otp/:email", element: <AuthEnterOtp /> },
+      { path: "welcome", element: <Welcome /> },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
