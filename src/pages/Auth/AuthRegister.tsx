@@ -6,34 +6,48 @@ import { Label } from "@radix-ui/react-label";
 import { useState } from "react";
 import { AiFillGoogleCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-// Function to calculate password strength
+
+const apiUrl = import.meta.env.VITE_API_URL;
 const getPasswordStrength = (password: string) => {
   let score = 0;
 
-  // Minimum length check
   if (password.length >= 8) score += 1;
-  // Check for uppercase letters
+
   if (/[A-Z]/.test(password)) score += 1;
-  // Check for lowercase letters
+
   if (/[a-z]/.test(password)) score += 1;
-  // Check for numbers
+
   if (/\d/.test(password)) score += 1;
-  // Check for special characters
+
   if (/[^a-zA-Z\d]/.test(password)) score += 1;
 
-  return Math.min(score, 5); // Cap at 5
+  return Math.min(score, 5);
 };
 
 const AuthRegister = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Name: ", name);
     console.log("Email:", email);
     console.log("Password:", password);
+
     //API call
+    try {
+      const res = await fetch(`${apiUrl}/api/auth/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name }),
+      });
+
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
     navigate(`/auth/verify-otp/${email}`);
   };
 
@@ -53,6 +67,17 @@ const AuthRegister = () => {
         />
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="snowdev"
+              className="w-full focus:ring-0 focus:border-blue-700 transition-all"
+            />
+          </div>
           <div>
             <Label htmlFor="email">Email</Label>
             <Input

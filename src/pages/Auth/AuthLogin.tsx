@@ -1,20 +1,46 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormTitle from "@/components/FormTitle";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
 import { AiFillGoogleCircle } from "react-icons/ai";
+import { Label } from "@radix-ui/react-label";
+import axios from "axios";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const AuthLogin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // API call
+    try {
+      // Envoyer la requête POST avec Axios
+      const response = await axios.post('http://localhost:3000/api/auth/register', formData);
+      console.log('Réponse du serveur:', response.data);
+      // Réinitialiser le formulaire ou rediriger l'utilisateur
+      setFormData({ name: '', email: '', password: '' });
+      alert('Inscription réussie !');
+    } catch (error) {
+      console.error('Erreur lors de l\'inscription:', error);
+      alert('Erreur lors de l\'inscription. Vérifiez les données ou le serveur.');
+    }finally{
+      navigate("")
+    }
   };
 
   return (
@@ -32,12 +58,24 @@ const AuthLogin = () => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="snowdev"
+              className="w-full focus:ring-0 focus:border-blue-700 transition-all"
+            />
+          </div>
+
+          <div>
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
               placeholder="abc@example.com"
               className="w-full focus:ring-0 focus:border-blue-700 transition-all"
             />
@@ -48,8 +86,8 @@ const AuthLogin = () => {
             <Input
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
               placeholder="************"
               className="w-full focus:ring-0 focus:border-blue-700 transition-all"
             />
@@ -93,7 +131,8 @@ const AuthLogin = () => {
             .
           </p>
         </form>
-        <div className=" flex items-center space-x-1 w-full pt-12">
+
+        <div className="flex items-center space-x-1 w-full pt-12">
           {[1, 2, 3, 4].map((segment, index) => (
             <div
               key={index}
