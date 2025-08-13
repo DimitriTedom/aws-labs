@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { Label } from "@radix-ui/react-label";
 import axios from "axios";
+import { Label } from "@/components/ui/label";
 
-const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 
 const AuthLogin = () => {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const handleSubmit = async (e:React.FormEvent) => {
       console.error('Erreur lors de l\'inscription:', error);
       alert('Erreur lors de l\'inscription. Vérifiez les données ou le serveur.');
     }finally{
-      navigate("")
+      // navigate("")
     }
   };
 
